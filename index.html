@@ -1,1 +1,611 @@
-<h1>Sebastian Górski</h1>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Górski</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Inter:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            gap: 12px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 24px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .lang-link {
+            font-size: 13px;
+            text-decoration: none;
+            color: #999;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 4px 8px;
+        }
+
+        .lang-link:hover {
+            color: #1a1a1a;
+        }
+
+        .lang-link.active {
+            color: #1a1a1a;
+            position: relative;
+        }
+
+        .lang-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 8px;
+            right: 8px;
+            height: 2px;
+            background: #1a1a1a;
+        }
+
+        .lang-separator {
+            color: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .lang-switcher {
+                top: 20px;
+                right: 20px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Subtle dotted pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 120px;
+            position: relative;
+        }
+
+        .status {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .status::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 72px;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 48px;
+        }
+
+        .intro {
+            max-width: 600px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 120px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 42px;
+            font-weight: 400;
+            margin-bottom: 48px;
+            line-height: 1.2;
+        }
+
+        /* Journey Timeline */
+        .journey {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin: 48px 0;
+            padding: 32px 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .journey-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .journey-year {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .journey-label {
+            font-size: 15px;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .journey-arrow {
+            color: #ccc;
+            font-size: 20px;
+        }
+
+        /* Focus Areas Grid */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px;
+            margin: 48px 0;
+        }
+
+        .focus-item {
+            border-left: 2px solid #e0e0e0;
+            padding-left: 24px;
+            transition: border-color 0.3s ease;
+        }
+
+        .focus-item:hover {
+            border-color: #1a1a1a;
+        }
+
+        .focus-number {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .focus-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .focus-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Projects */
+        .project {
+            margin-bottom: 64px;
+            padding-bottom: 64px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .project-status {
+            font-size: 12px;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .project-desc {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 6px 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            color: #666;
+            background: white;
+        }
+
+        /* Background */
+        .background-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            max-width: 700px;
+            margin-bottom: 24px;
+        }
+
+        .credentials {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .credential-item {
+            margin-bottom: 24px;
+        }
+
+        .credential-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .credential-org {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .contact-item {
+            padding: 32px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: #1a1a1a;
+            transform: translateY(-2px);
+        }
+
+        .contact-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-value {
+            font-size: 16px;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .contact-value:hover {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 120px;
+            padding-top: 48px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 24px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            .subtitle {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .focus-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .journey {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .journey-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: #1a1a1a;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="status">Otwarty na nowe projekty</div>
+            <h1>Sebastian Górski</h1>
+            <p class="subtitle">Redaktor → Tech Specialist</p>
+            <p class="intro">
+                Dziennikarz technologiczny z 20-letnim doświadczeniem, obecnie w trakcie transformacji kariery w kierunku QA, administracji systemami Linux, sieci i GenAI. Łączę głęboką wiedzę o technologii z umiejętnością klarownej komunikacji i analitycznego myślenia.
+            </p>
+        </header>
+
+        <!-- Transition Story -->
+        <section>
+            <div class="section-label">Dlaczego ten pivot</div>
+            <h2>Świadoma transformacja kariery<br>w odpowiedzi na zmieniający się rynek</h2>
+            <p class="intro">
+                Dziennikarstwo technologiczne, jakie znam, przeszło fundamentalną zmianę. AI generuje treści szybciej i taniej niż ludzie, a wartość dodana redaktora znacząco spadła. Zamiast walczyć z tym trendem, przenoszę 20 lat wiedzy o technologii tam, gdzie ludzka ekspertyza wciąż ma kluczowe znaczenie: testowanie, diagnostyka, administracja systemami.
+            </p>
+            <p class="intro" style="margin-top: 24px;">
+                To nie eksperyment ani kryzys wieku średniego. To przemyślana decyzja strategiczna – wykorzystanie doświadczenia w obszarze, który AI nie zastąpi w najbliższej przyszłości. Nie ma powrotu do poprzedniej ścieżki.
+            </p>
+        </section>
+
+        <!-- Focus Areas -->
+        <section>
+            <div class="section-label">Obszary eksploracji</div>
+            <h2>W czym się obecnie rozwijam</h2>
+            
+            <div class="focus-grid">
+                <div class="focus-item">
+                    <div class="focus-number">01</div>
+                    <div class="focus-title">Quality Assurance</div>
+                    <p class="focus-desc">Testowanie manualne i podstawy automatyzacji. Myślenie o edge cases i user experience. Metodyczne podejście do weryfikacji funkcjonalności.</p>
+                </div>
+
+                <div class="focus-item">
+                    <div class="focus-number">02</div>
+                    <div class="focus-title">Linux & System Administration</div>
+                    <p class="focus-desc">Proxmox, LXC, bash scripting. Budowanie domowego labu jako sandbox do eksperymentów. Google IT Support Professional Certificate w trakcie.</p>
+                </div>
+
+                <div class="focus-item">
+                    <div class="focus-number">03</div>
+                    <div class="focus-title">Networking</div>
+                    <p class="focus-desc">TCP/IP, routing, VPN, reverse proxy. Cloudflare Tunnel, NGINX. Diagnostyka i troubleshooting połączeń sieciowych.</p>
+                </div>
+
+                <div class="focus-item">
+                    <div class="focus-number">04</div>
+                    <div class="focus-title">Generative AI</div>
+                    <p class="focus-desc">Prompt engineering, workflow automation, praktyczne zastosowanie LLM. AIDEAS Program (Politechnika Wrocławska) – development kompetencji AI.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section>
+            <div class="section-label">Wybrane projekty</div>
+            <h2>Nad czym ostatnio pracuję</h2>
+
+            <div class="project">
+                <div class="project-header">
+                    <h3 class="project-title">Portfolio na GitHub Pages</h3>
+                    <span class="project-status">Grudzień 2024</span>
+                </div>
+                <p class="project-desc">
+                    Minimalistyczna strona portfolio zbudowana z czystego HTML/CSS, hostowana na GitHub Pages. Projekt jako praktyka front-end development i nauka Git workflow.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML/CSS</span>
+                    <span class="tag">GitHub Pages</span>
+                    <span class="tag">Responsive Design</span>
+                    <span class="tag">Git</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <h3 class="project-title">Homelab network monitoring</h3>
+                    <span class="project-status">W trakcie</span>
+                </div>
+                <p class="project-desc">
+                    Setup systemu monitoringu sieci domowej – analiza ruchu, alerting, wizualizacja. Nauka praktycznego troubleshootingu i diagnostyki w kontrolowanym środowisku.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Networking</span>
+                    <span class="tag">Monitoring</span>
+                    <span class="tag">Docker</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <h3 class="project-title">AI workflow automation</h3>
+                    <span class="project-status">Listopad 2024</span>
+                </div>
+                <p class="project-desc">
+                    Eksperymenty z automatyzacją powtarzalnych zadań przy użyciu LLM API. Focus na praktycznym zastosowaniu prompt engineering i chainingu dla zwiększenia produktywności.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">GenAI</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">API Integration</span>
+                    <span class="tag">Automation</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Background -->
+        <section>
+            <div class="section-label">Background</div>
+            <h2>20 lat w tech media jako fundament</h2>
+            
+            <p class="background-text">
+                Przez dwie dekady pracowałem dla najważniejszych polskich mediów technologicznych – ONET, Gazeta.pl, Polska Agencja Prasowa, chip.pl. Tworzyłem treści o sprzęcie, oprogramowaniu, usługach chmurowych i trendach w IT. Prowadziłem recenzje, testy, analizy i materiały wideo.
+            </p>
+            
+            <p class="background-text">
+                To doświadczenie nauczyło mnie jak działają technologie od środka, jak diagnozować problemy i jak je jasno komunikować. Teraz wykorzystuję tę wiedzę w praktyce – nie tylko opisuję systemy, ale je konfiguruję, testuję i optymalizuję.
+            </p>
+
+            <div class="credentials">
+                <div class="credential-item">
+                    <div class="credential-title">Google IT Support Professional Certificate</div>
+                    <div class="credential-org">Google / Coursera – w trakcie realizacji</div>
+                </div>
+
+                <div class="credential-item">
+                    <div class="credential-title">AIDEAS: Program Rozwoju Kompetencji AI</div>
+                    <div class="credential-org">Politechnika Wrocławska / EIT Tech Talent Generator</div>
+                </div>
+
+                <div class="credential-item">
+                    <div class="credential-title">Wykorzystanie AI w rozwoju firmy</div>
+                    <div class="credential-org">Google Umiejętności Jutra AI</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section>
+            <div class="section-label">Kontakt</div>
+            <h2>Porozmawiajmy</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <a href="mailto:manamedia@protonmail.com" class="contact-value">manamedia@protonmail.com</a>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">Telefon</div>
+                    <a href="tel:+48605205586" class="contact-value">+48 605 205 586</a>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">Lokalizacja</div>
+                    <div class="contact-value">Warszawa, Polska</div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">GitHub</div>
+                    <a href="https://github.com/voightkampfftest" target="_blank" class="contact-value">github.com/voightkampfftest</a>
+                </div>
+            </div>
+
+            <div class="contact-grid" style="margin-top: 32px;">
+                <div class="contact-item">
+                    <div class="contact-label">LinkedIn</div>
+                    <a href="https://www.linkedin.com/in/seba-gorski/" target="_blank" class="contact-value">linkedin.com/in/seba-gorski</a>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">CV</div>
+                    <a href="#" class="contact-value">Pobierz PDF</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 Sebastian Górski • Hostowane na GitHub Pages</p>
+        </footer>
+    </div>
+</body>
+</html>
