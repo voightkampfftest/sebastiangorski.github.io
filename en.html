@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Górski</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Inter:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            gap: 12px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 24px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .lang-link {
+            font-size: 13px;
+            text-decoration: none;
+            color: #999;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 4px 8px;
+        }
+
+        .lang-link:hover {
+            color: #1a1a1a;
+        }
+
+        .lang-link.active {
+            color: #1a1a1a;
+            position: relative;
+        }
+
+        .lang-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 8px;
+            right: 8px;
+            height: 2px;
+            background: #1a1a1a;
+        }
+
+        .lang-separator {
+            color: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .lang-switcher {
+                top: 20px;
+                right: 20px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Subtle dotted pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 120px;
+            position: relative;
+        }
+
+        .status {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .status::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 72px;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 48px;
+        }
+
+        .intro {
+            max-width: 600px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 120px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 42px;
+            font-weight: 400;
+            margin-bottom: 48px;
+            line-height: 1.2;
+        }
+
+        /* Focus Areas Grid */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px;
+            margin: 48px 0;
+        }
+
+        .focus-item {
+            border-left: 2px solid #e0e0e0;
+            padding-left: 24px;
+            transition: border-color 0.3s ease;
+        }
+
+        .focus-item:hover {
+            border-color: #1a1a1a;
+        }
+
+        .focus-number {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .focus-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .focus-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Projects */
+        .project {
+            margin-bottom: 64px;
+            padding-bottom: 64px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .project-status {
+            font-size: 12px;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .project-desc {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 6px 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            color: #666;
+            background: white;
+        }
+
+        /* Background */
+        .background-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            max-width: 700px;
+            margin-bottom: 24px;
+        }
+
+        .credentials {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .credential-item {
+            margin-bottom: 24px;
+        }
+
+        .credential-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .credential-org {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .contact-item {
+            padding: 32px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: #1a1a1a;
+            transform: translateY(-2px);
+        }
+
+        .contact-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-value {
+            font-size: 16px;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .contact-value:hover {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 120px;
+            padding-top: 48px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 24px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            .subtitle {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .focus-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: #1a1a1a;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <a href="index.html" class="lang-link">PL</a>
+        <span class="lang-separator">/</span>
+        <a href="en.html" class="lang-link active">EN</a>
+    </div>
+
+    <div class="bg-grid"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="status">Open to new projects</div>
+            <h1>Sebastian Górski</h1>
+            <p class="subtitle">Tech Journalist → QA & Systems Specialist</p>
+            <p class="intro">
+                Tech journalist with 20 years of experience, now transitioning into QA, Linux system administration, networking, and GenAI. I bring deep technology knowledge, analytical thinking, and the ability to communicate complex issues clearly.
+            </p>
+        </header>
+
+        <!-- Transition Story -->
+        <section>
+            <div class="section-label">Why this pivot</div>
+            <h2>A deliberate career shift<br>in response to a changing market</h2>
+            <p class="intro">
+                Tech journalism as I knew it has fundamentally changed. AI generates content faster and cheaper than humans, and the editor's added value has significantly declined. Rather than fighting this trend, I'm applying 20 years of technology knowledge where human expertise still matters: testing, diagnostics, systems administration.
+            </p>
+            <p class="intro" style="margin-top: 24px;">
+                This isn't an experiment or a midlife crisis. It's a strategic decision—leveraging experience in an area that AI won't replace anytime soon. There's no going back to the previous path.
+            </p>
+        </section>
+
+        <!-- Focus Areas -->
+        <section>
+            <div class="section-label">Current focus</div>
+            <h2>What I'm learning and building</h2>
+            
+            <div class="focus-grid">
+                <div class="focus-item">
+                    <div class="focus-number">01</div>
+                    <div class="focus-title">Quality Assurance</div>
+                    <p class="focus-desc">Manual testing and test automation fundamentals. Strong focus on edge cases and user experience. Methodical approach to quality verification.</p>
+                </div>
+
+                <div class="focus-item">
+                    <div class="focus-number">02</div>
+                    <div class="focus-title">Linux & System Administration</div>
+                    <p class="focus-desc">Proxmox, LXC, bash scripting. Running a homelab for hands-on learning. Google IT Support Professional Certificate in progress.</p>
+                </div>
+
+                <div class="focus-item">
+                    <div class="focus-number">03</div>
+                    <div class="focus-title">Networking</div>
+                    <p class="focus-desc">TCP/IP, routing, VPN, reverse proxy. Cloudflare Tunnel, NGINX. Network diagnostics and connection troubleshooting.</p>
+                </div>
+
+                <div class="focus-item">
+                    <div class="focus-number">04</div>
+                    <div class="focus-title">Generative AI</div>
+                    <p class="focus-desc">Prompt engineering, workflow automation, practical LLM applications. AIDEAS Program (Wrocław University of Technology) – developing AI expertise for real-world use cases.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section>
+            <div class="section-label">Selected projects</div>
+            <h2>What I've been working on</h2>
+
+            <div class="project">
+                <div class="project-header">
+                    <h3 class="project-title">Portfolio on GitHub Pages</h3>
+                    <span class="project-status">December 2024</span>
+                </div>
+                <p class="project-desc">
+                    Minimalist portfolio website built with pure HTML/CSS, hosted on GitHub Pages. A hands-on project to practice front-end development and learn Git workflow.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML/CSS</span>
+                    <span class="tag">GitHub Pages</span>
+                    <span class="tag">Responsive Design</span>
+                    <span class="tag">Git</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <h3 class="project-title">Homelab network monitoring</h3>
+                    <span class="project-status">In progress</span>
+                </div>
+                <p class="project-desc">
+                    Setting up a home network monitoring system—traffic analysis, alerting, and visualization. Learning practical troubleshooting and diagnostics in a controlled environment.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Networking</span>
+                    <span class="tag">Monitoring</span>
+                    <span class="tag">Docker</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <h3 class="project-title">AI workflow automation</h3>
+                    <span class="project-status">November 2024</span>
+                </div>
+                <p class="project-desc">
+                    Experiments with automating repetitive tasks using LLM APIs. Focus on practical application of prompt engineering and chaining for productivity enhancement.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">GenAI</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">API Integration</span>
+                    <span class="tag">Automation</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Background -->
+        <section>
+            <div class="section-label">Background</div>
+            <h2>20 years in tech media:<br>the foundation</h2>
+            
+            <p class="background-text">
+                For two decades, I worked for Poland's leading tech media outlets—ONET, Gazeta.pl, Polish Press Agency, chip.pl. I created content about hardware, software, cloud services, and IT trends. Conducted reviews, tests, analyses, and produced video content.
+            </p>
+            
+            <p class="background-text">
+                This experience taught me how technologies work under the hood, how to diagnose issues, and how to explain them clearly. Now I'm applying this knowledge hands-on—not just writing about systems, but configuring, testing, and optimizing them.
+            </p>
+
+            <div class="credentials">
+                <div class="credential-item">
+                    <div class="credential-title">Google IT Support Professional Certificate</div>
+                    <div class="credential-org">Google / Coursera – in progress</div>
+                </div>
+
+                <div class="credential-item">
+                    <div class="credential-title">AIDEAS: AI Competency Development Program</div>
+                    <div class="credential-org">Wrocław University of Technology / EIT Tech Talent Generator</div>
+                </div>
+
+                <div class="credential-item">
+                    <div class="credential-title">Using AI in Business Development</div>
+                    <div class="credential-org">Google Skills of Tomorrow AI</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section>
+            <div class="section-label">Contact</div>
+            <h2>Let's talk</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <a href="mailto:manamedia@protonmail.com" class="contact-value">manamedia@protonmail.com</a>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">Phone</div>
+                    <a href="tel:+48605205586" class="contact-value">+48 605 205 586</a>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">Location</div>
+                    <div class="contact-value">Warsaw, Poland</div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">GitHub</div>
+                    <a href="https://github.com/voightkampfftest" target="_blank" class="contact-value">github.com/voightkampfftest</a>
+                </div>
+            </div>
+
+            <div class="contact-grid" style="margin-top: 32px;">
+                <div class="contact-item">
+                    <div class="contact-label">LinkedIn</div>
+                    <a href="https://www.linkedin.com/in/seba-gorski/" target="_blank" class="contact-value">linkedin.com/in/seba-gorski</a>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">CV</div>
+                    <a href="#" class="contact-value">Download PDF</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 Sebastian Górski • Hosted on GitHub Pages</p>
+        </footer>
+    </div>
+</body>
+</html>
